@@ -1,6 +1,5 @@
 package com.test.urlshortening.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -21,7 +20,7 @@ public class URL {
     private String shortURL;
 
     public URL() {
-        this.createdDate = LocalDateTime.now();;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Long getId() {

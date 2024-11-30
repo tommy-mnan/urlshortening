@@ -26,7 +26,7 @@ public class URLServiceImpl implements URLService{
         nURL.setFullURL(befURL.getFullURL());
         urlRepository.save(nURL);
         nURL.setShortURL(ShorteningUtil.idToStr(nURL.getId()));
-
+        LOGGER.debug("getShortURL check url id {}",nURL.getId());
         urlRepository.save(nURL);
         return new AftURL(nURL);
     }
