@@ -32,4 +32,11 @@ public class CustomExceptionHandler {
         ResponseModelFailed responseModelFailed = new ResponseModelFailed(HttpStatus.BAD_REQUEST, errors, request.getRequest().getRequestURI());
         return new ResponseEntity<>(responseModelFailed, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({ URLNotFoundException.class })
+    public ResponseEntity<Object> handleUserAlreadyExist(final RuntimeException ex, final ServletWebRequest request) {
+        LOGGER.error("404 Status Code : {}", ex.getMessage());
+        ResponseModelFailed responseModelFailed = new ResponseModelFailed(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequest().getRequestURI());
+        return new ResponseEntity<>(responseModelFailed, HttpStatus.NOT_FOUND);
+    }
 }

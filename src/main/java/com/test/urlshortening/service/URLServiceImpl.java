@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class URLServiceImpl implements URLService{
@@ -18,15 +20,22 @@ public class URLServiceImpl implements URLService{
 
     @Autowired
     private URLRepository urlRepository;
-    public AftURL getShortUrl(BefURL fullUrl) {
-        URL nURL = new URL();
-        nURL.setFullURL(fullUrl.getFullURL());
-        urlRepository.save(nURL);
 
+    public AftURL getShortURL(BefURL befURL) {
+        URL nURL = new URL();
+        nURL.setFullURL(befURL.getFullURL());
+        urlRepository.save(nURL);
         nURL.setShortURL(ShorteningUtil.idToStr(nURL.getId()));
 
-        AftURL aftURL = new AftURL(nURL);
+        urlRepository.save(nURL);
+        return new AftURL(nURL);
+    }
 
-        return aftURL;
+    public Optional<URL> findByShortURL(String shortURL) {
+        return urlRepository.findURLByShortURL(shortURL);
+    }
+
+    public Optional<URL> findByFullURL(String fullURL) {
+        return urlRepository.findURLByFullURL(fullURL);
     }
 }

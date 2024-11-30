@@ -15,11 +15,14 @@ public class URL {
     @Column(name = "full_url")
     private String fullURL;
 
-    @JsonFormat(pattern = ("yyyy/MM/dd HH:mm:ss"))
     private LocalDateTime createdDate;
 
     @Column(name = "short_url")
     private String shortURL;
+
+    public URL() {
+        this.createdDate = LocalDateTime.now();;
+    }
 
     public Long getId() {
         return id;
