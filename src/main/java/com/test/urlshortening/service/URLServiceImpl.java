@@ -1,5 +1,7 @@
 package com.test.urlshortening.service;
 
+import com.test.urlshortening.dto.AftURL;
+import com.test.urlshortening.dto.BefURL;
 import com.test.urlshortening.entity.URL;
 import com.test.urlshortening.repository.URLRepository;
 import com.test.urlshortening.util.ShorteningUtil;
@@ -16,13 +18,15 @@ public class URLServiceImpl implements URLService{
 
     @Autowired
     private URLRepository urlRepository;
-    public String getShortUrl(String fullUrl) {
+    public AftURL getShortUrl(BefURL fullUrl) {
         URL nURL = new URL();
-        nURL.setUrl(fullUrl);
-        LOGGER.debug("Before save Check on new URL id : {}",nURL.getId());
+        nURL.setFullURL(fullUrl.getFullURL());
         urlRepository.save(nURL);
-        String shortUrlText = ShorteningUtil.idToStr(nURL.getId());
-        LOGGER.debug("Check on new URL id : {}",nURL.getId());
-        return shortUrlText;
+
+        nURL.setShortURL(ShorteningUtil.idToStr(nURL.getId()));
+
+        AftURL aftURL = new AftURL(nURL);
+
+        return aftURL;
     }
 }

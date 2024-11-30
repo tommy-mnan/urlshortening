@@ -12,11 +12,14 @@ public class URL {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    @Column(name = "full_url")
+    private String fullURL;
 
     @JsonFormat(pattern = ("yyyy/MM/dd HH:mm:ss"))
     private LocalDateTime createdDate;
-    private String shortUrl;
+
+    @Column(name = "short_url")
+    private String shortURL;
 
     public Long getId() {
         return id;
@@ -26,13 +29,7 @@ public class URL {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
@@ -42,11 +39,19 @@ public class URL {
         this.createdDate = createdDate;
     }
 
-    public String getShortUrl() {
-        return shortUrl;
+    public String getFullURL() {
+        return fullURL;
     }
 
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
+    public void setFullURL(String fullURL) {
+        this.fullURL = fullURL;
+    }
+
+    public String getShortURL() {
+        return shortURL;
+    }
+
+    public void setShortURL(String shortURL) {
+        this.shortURL = shortURL;
     }
 }
