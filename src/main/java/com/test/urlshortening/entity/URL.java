@@ -1,6 +1,8 @@
 package com.test.urlshortening.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDateTime;
 
@@ -8,7 +10,16 @@ import java.time.LocalDateTime;
 @Table(name = "URL")
 public class URL {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "urlid-sequence-generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "urlid_sequence"),
+                    @Parameter(name = "initial_value", value = "10000001"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator = "urlid-sequence-generator")
     private Long id;
 
     @Column(name = "full_url")
