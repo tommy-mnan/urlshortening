@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomExceptionHandler.class);
+    private static String NOT_FOUND_URL = "https://short-url-front-6440e62d04bd.herokuapp.com/";
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public final ResponseEntity<ResponseModelFailed> handleValidationExceptions(
@@ -34,9 +36,8 @@ public class CustomExceptionHandler {
     }
 
     @ExceptionHandler({ URLNotFoundException.class })
-    public ResponseEntity<Object> handleUserAlreadyExist(final RuntimeException ex, final ServletWebRequest request) {
+    public ResponseEntity<Void> handleUserAlreadyExist(final RuntimeException ex, final ServletWebRequest request) {
         LOGGER.error("404 Status Code : {}", ex.getMessage());
-        ResponseModelFailed responseModelFailed = new ResponseModelFailed(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequest().getRequestURI());
-        return new ResponseEntity<>(responseModelFailed, HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(NOT_FOUND_URL)).build();
     }
 }
