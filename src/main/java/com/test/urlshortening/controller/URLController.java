@@ -20,8 +20,11 @@ import java.util.Optional;
 @RestController
 public class URLController {
 
-    @Autowired
     private URLService urlService;
+
+    public URLController(URLService urlService) {
+        this.urlService = urlService;
+    }
 
     @PostMapping("/shorten")
     public ResponseEntity<ResponseModel> saveUrl(@Valid @RequestBody BefURL befURL, HttpServletRequest request) {

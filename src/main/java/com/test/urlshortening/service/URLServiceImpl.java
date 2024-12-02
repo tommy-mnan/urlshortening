@@ -18,8 +18,11 @@ import java.util.Optional;
 public class URLServiceImpl implements URLService{
     private static final Logger LOGGER = LoggerFactory.getLogger(URLServiceImpl.class);
 
-    @Autowired
     private URLRepository urlRepository;
+
+    public URLServiceImpl(URLRepository urlRepository) {
+        this.urlRepository = urlRepository;
+    }
 
     public AftURL getShortURL(BefURL befURL) {
         URL nURL = new URL();
