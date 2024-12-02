@@ -18,7 +18,7 @@ import java.util.Map;
 @ControllerAdvice
 public class CustomExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomExceptionHandler.class);
-    private static String NOT_FOUND_URL = "https://short-url-front-6440e62d04bd.herokuapp.com/";
+    private static String NOT_FOUND_URL = "https://short-url-front-6440e62d04bd.herokuapp.com/not-found";
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public final ResponseEntity<ResponseModelFailed> handleValidationExceptions(
